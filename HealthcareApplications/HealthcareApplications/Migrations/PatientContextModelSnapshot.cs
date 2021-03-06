@@ -47,12 +47,10 @@ namespace HealthcareApplications.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("PhysicianId")
+                    b.Property<int>("PhysicianId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("PhysicianId");
 
                     b.ToTable("Patients");
                 });
