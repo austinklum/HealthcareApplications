@@ -49,7 +49,7 @@ namespace HealthcareApplications.Controllers
 
             var vm = new PatientsPhysicianViewModel
             {
-                Physicians = new SelectList(physicians),
+                Physicians = new SelectList(physicians, "Value", "Text"),
                 Patients = await patients.ToListAsync()
             };
 
