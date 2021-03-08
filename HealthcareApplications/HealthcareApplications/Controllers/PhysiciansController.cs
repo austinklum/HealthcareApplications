@@ -151,22 +151,11 @@ namespace HealthcareApplications.Controllers
         }
 
 
-        public IActionResult CreatePrescription(int? patientId, int? physicianId)
+        public IActionResult CreatePrescription()
         {
 
 
-            Prescription prescription = new Prescription();
 
-            if (patientId.HasValue)
-            {
-                prescription.PrescribedPatientId = patientId.Value;
-            }
-
-            if (physicianId.HasValue)
-            {
-                prescription.PrescribingPhysicianId = physicianId.Value;
-            }
-            
             return View();
         }
 
