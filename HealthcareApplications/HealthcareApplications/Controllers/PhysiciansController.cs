@@ -167,7 +167,7 @@ namespace HealthcareApplications.Controllers
                 prescription.PrescribingPhysicianId = physicianId.Value;
             }
             
-            return View(prescription);
+            return View();
         }
 
         [HttpPost]
