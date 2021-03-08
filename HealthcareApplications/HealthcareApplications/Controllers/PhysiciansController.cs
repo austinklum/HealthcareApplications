@@ -149,5 +149,37 @@ namespace HealthcareApplications.Controllers
         {
             return _context.Physician.Any(e => e.Id == id);
         }
+
+
+        public IActionResult CreatePrescription(int? patientId, int? physicianId)
+        {
+
+
+            Prescription prescription = new Prescription();
+
+            if (patientId.HasValue)
+            {
+                prescription.PrescribedPatientId = patientId.Value;
+            }
+
+            if (physicianId.HasValue)
+            {
+                prescription.PrescribingPhysicianId = physicianId.Value;
+            }
+            
+            return View(prescription);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreatePrescription([Bind("")] Prescription prescription)
+        {
+            if (ModelState.IsValid)
+            {
+                // TODO: Post to Pharmacy
+                return View(prescription);
+            }
+            return View(prescription);
+        }
     }
 }
