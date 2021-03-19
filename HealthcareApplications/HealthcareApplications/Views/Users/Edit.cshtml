@@ -1,0 +1,79 @@
+﻿@model HealthcareApplications.Models.UserModels.User
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>User</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="Username" class="control-label"></label>
+                <input asp-for="Username" class="form-control" />
+                <span asp-validation-for="Username" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Password" class="control-label"></label>
+                <input asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Salt" class="control-label"></label>
+                <input asp-for="Salt" class="form-control" />
+                <span asp-validation-for="Salt" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AccountStatus" class="control-label"></label>
+                <input asp-for="AccountStatus" class="form-control" />
+                <span asp-validation-for="AccountStatus" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SecurityQuestionIndex1" class="control-label"></label>
+                <input asp-for="SecurityQuestionIndex1" class="form-control" />
+                <span asp-validation-for="SecurityQuestionIndex1" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SecurityQuestionResponse1" class="control-label"></label>
+                <input asp-for="SecurityQuestionResponse1" class="form-control" />
+                <span asp-validation-for="SecurityQuestionResponse1" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SecurityQuestionIndex2" class="control-label"></label>
+                <input asp-for="SecurityQuestionIndex2" class="form-control" />
+                <span asp-validation-for="SecurityQuestionIndex2" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SecurityQuestionResponse2" class="control-label"></label>
+                <input asp-for="SecurityQuestionResponse2" class="form-control" />
+                <span asp-validation-for="SecurityQuestionResponse2" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SecurityQuestionIndex3" class="control-label"></label>
+                <input asp-for="SecurityQuestionIndex3" class="form-control" />
+                <span asp-validation-for="SecurityQuestionIndex3" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SecurityQuestionResponse3" class="control-label"></label>
+                <input asp-for="SecurityQuestionResponse3" class="form-control" />
+                <span asp-validation-for="SecurityQuestionResponse3" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
