@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace HealthcareApplications.Migrations.Physician
 {
-    [DbContext(typeof(PhysicianContext))]
+    [DbContext(typeof(UserContext))]
     [Migration("20210318041728_PhsyicianContextCreate")]
     partial class PhsyicianContextCreate
     {

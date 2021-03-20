@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace HealthcareApplications.Migrations.Physician
 {
-    [DbContext(typeof(PhysicianContext))]
+    [DbContext(typeof(UserContext))]
     partial class PhysicianContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

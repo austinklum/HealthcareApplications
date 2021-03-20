@@ -12,9 +12,9 @@ namespace HealthcareApplications.Controllers
 {
     public class UsersController : Controller
     {
-        private readonly PhysicianContext _context;
+        private readonly UserContext _context;
 
-        public UsersController(PhysicianContext context)
+        public UsersController(UserContext context)
         {
             _context = context;
         }
@@ -22,7 +22,7 @@ namespace HealthcareApplications.Controllers
         // GET: Users
         public async Task<IActionResult> Index()
         {
-            return View(await _context.User.ToListAsync());
+            return View(await _context.Users.ToListAsync());
         }
 
         // GET: Users/Details/5
@@ -33,7 +33,7 @@ namespace HealthcareApplications.Controllers
                 return NotFound();
             }
 
-            var user = await _context.User
+            var user = await _context.Users
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (user == null)
             {
@@ -54,7 +54,7 @@ namespace HealthcareApplications.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Username,Password,Salt,AccountStatus,SecurityQuestionIndex1,SecurityQuestionResponse1,SecurityQuestionIndex2,SecurityQuestionResponse2,SecurityQuestionIndex3,SecurityQuestionResponse3")] User user)
+        public async Task<IActionResult> Create([Bind("Id,Username,Password,Salt,AccountStatus,SecQ1Index,SecQ1Response,SecQ2Index,SecQ2Response,SecQ3Index,SecQ3Response")] User user)
         {
             if (ModelState.IsValid)
             {
@@ -73,7 +73,7 @@ namespace HealthcareApplications.Controllers
                 return NotFound();
             }
 
-            var user = await _context.User.FindAsync(id);
+            var user = await _context.Users.FindAsync(id);
             if (user == null)
             {
                 return NotFound();
@@ -86,7 +86,7 @@ namespace HealthcareApplications.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Username,Password,Salt,AccountStatus,SecurityQuestionIndex1,SecurityQuestionResponse1,SecurityQuestionIndex2,SecurityQuestionResponse2,SecurityQuestionIndex3,SecurityQuestionResponse3")] User user)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Username,Password,Salt,AccountStatus,SecQ1Index,SecQ1Response,SecQ2Index,SecQ2Response,SecQ3Index,SecQ3Response")] User user)
         {
             if (id != user.Id)
             {
@@ -124,7 +124,7 @@ namespace HealthcareApplications.Controllers
                 return NotFound();
             }
 
-            var user = await _context.User
+            var user = await _context.Users
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (user == null)
             {
@@ -139,15 +139,15 @@ namespace HealthcareApplications.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var user = await _context.User.FindAsync(id);
-            _context.User.Remove(user);
+            var user = await _context.Users.FindAsync(id);
+            _context.Users.Remove(user);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool UserExists(int id)
         {
-            return _context.User.Any(e => e.Id == id);
+            return _context.Users.Any(e => e.Id == id);
         }
     }
 }

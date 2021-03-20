@@ -34,22 +34,22 @@ namespace HealthcareApplications.Migrations.User
                     b.Property<string>("Salt")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("SecurityQuestionIndex1")
+                    b.Property<int>("SecQ1Index")
                         .HasColumnType("int");
 
-                    b.Property<int>("SecurityQuestionIndex2")
+                    b.Property<int>("SecQ2Index")
                         .HasColumnType("int");
 
-                    b.Property<int>("SecurityQuestionIndex3")
+                    b.Property<int>("SecQ3Index")
                         .HasColumnType("int");
 
-                    b.Property<string>("SecurityQuestionResponse1")
+                    b.Property<string>("SecQ1Response")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("SecurityQuestionResponse2")
+                    b.Property<string>("SecQ2Response")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("SecurityQuestionResponse3")
+                    b.Property<string>("SecQ3Response")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Username")

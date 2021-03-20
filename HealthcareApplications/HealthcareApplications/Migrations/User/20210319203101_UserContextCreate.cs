@@ -16,12 +16,12 @@ namespace HealthcareApplications.Migrations.User
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Salt = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     AccountStatus = table.Column<int>(type: "int", nullable: false),
-                    SecurityQuestionIndex1 = table.Column<int>(type: "int", nullable: false),
-                    SecurityQuestionResponse1 = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    SecurityQuestionIndex2 = table.Column<int>(type: "int", nullable: false),
-                    SecurityQuestionResponse2 = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    SecurityQuestionIndex3 = table.Column<int>(type: "int", nullable: false),
-                    SecurityQuestionResponse3 = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    SecQ1Index = table.Column<int>(type: "int", nullable: false),
+                    SecQ1Response = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SecQ2Index = table.Column<int>(type: "int", nullable: false),
+                    SecQ2Response = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SecQ3Index = table.Column<int>(type: "int", nullable: false),
+                    SecQ3Response = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
