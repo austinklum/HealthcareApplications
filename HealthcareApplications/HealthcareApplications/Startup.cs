@@ -28,7 +28,7 @@ namespace HealthcareApplications
         {
             services.AddControllersWithViews();
             services.AddDbContext<PatientContext>(options => options.UseSqlServer(Configuration.GetConnectionString("PatientContext")));
-            services.AddDbContext<UserContext>(options => options.UseSqlServer(Configuration.GetConnectionString("PatientContext")));
+            services.AddDbContext<PhysicianContext>(options => options.UseSqlServer(Configuration.GetConnectionString("PatientContext")));
             services.AddDbContext<UserContext>(options => options.UseSqlServer(Configuration.GetConnectionString("PatientContext")));
 
             services.AddMvc();
