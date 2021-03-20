@@ -8,16 +8,14 @@ namespace HealthcareApplications.Models.UserModels
     public class User
     {
         public int Id { get; set; }
-        public string Username { get; set; }
-        public string Password { get; set; }
-        public string Salt { get; set; }
+        public String Username { get; set; }
+        public String Password { get; set; }
+        public int SecQ1Index { get; set; }
+        public String SecQ1Response { get; set; }
+        public int SecQ2Index { get; set; }
+        public String SecQ2Response { get; set; }
+        public int SecQ3Index { get; set; }
+        public String SecQ3Response { get; set; }
         public int AccountStatus { get; set; }
-        public int SecurityQuestionIndex1 { get; set; }
-        public string SecurityQuestionResponse1 { get; set; }
-        public int SecurityQuestionIndex2 { get; set; }
-        public string SecurityQuestionResponse2 { get; set; }
-        public int SecurityQuestionIndex3 { get; set; }
-        public string SecurityQuestionResponse3 { get; set; }
-
     }
 }
