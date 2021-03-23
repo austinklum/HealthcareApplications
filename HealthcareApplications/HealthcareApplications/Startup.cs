@@ -31,6 +31,7 @@ namespace HealthcareApplications
             services.AddDbContext<PhysicianContext>(options => options.UseSqlServer(Configuration.GetConnectionString("PatientContext")));
             services.AddDbContext<UserContext>(options => options.UseSqlServer(Configuration.GetConnectionString("PatientContext")));
             services.AddDbContext<PrescriptionContext>(options => options.UseSqlServer(Configuration.GetConnectionString("PatientContext")));
+            services.AddDbContext<DrugContext>(options => options.UseSqlServer(Configuration.GetConnectionString("PatientContext")));
 
             services.AddMvc();
             services.AddDistributedMemoryCache();
