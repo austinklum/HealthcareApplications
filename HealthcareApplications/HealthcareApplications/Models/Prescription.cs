@@ -11,7 +11,6 @@ namespace HealthcareApplications.Models
         public int Id { get; set; }
 
         public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; }
         public Physician PrescribingPhysician { get; set; }
         public Patient PrescribedPatient { get; set; }
         public Drug PrescribedDrug { get; set; }
