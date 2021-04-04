@@ -16,6 +16,8 @@ namespace HealthcareApplications.Models
         public String Address { get; set; }
         public int PhysicianId { get; set; }
         [NotMapped]
+        public Physician Physician { get; set; }
+        [NotMapped]
         public List<int> PrescriptionIds { get; set; }
         public int UserId { get; set; }
         #endregion
