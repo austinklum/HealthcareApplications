@@ -75,9 +75,18 @@ namespace HealthcareApplications.Controllers
         }
 
         // GET: Prescriptions/Create
-        public IActionResult Create()
+        public IActionResult Create(int id)
         {
-            return View();
+            var patient = _patientContext.Patients.Find(id);
+
+            var vm = new Prescription()
+            {
+                StartDate = DateTime.Today,
+                PrescribedPatientId = patient.Id,
+                PrescribingPhysicianId = patient.PhysicianId
+            };
+
+            return View(vm);
         }
 
         // POST: Prescriptions/Create
