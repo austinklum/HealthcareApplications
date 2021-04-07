@@ -14,16 +14,22 @@ namespace HealthcareApplications.Models
 
         [DisplayName("Start Date")]
         public DateTime StartDate { get; set; }
+
         [DisplayName("Prescribing Physician ID")]
         public int PrescribingPhysicianId { get; set; }
+        
         [DisplayName("Prescribed Patient ID")]
         public int PrescribedPatientId { get; set; }
-        [DisplayName("Prescribed Drug ID")]
-        public int PrescribedDrugId { get; set; }
+        
+        [DisplayName("Prescribed Drugs")]
+        public List<PrescriptionDrug> PrescribedDrugs { get; set; }
+        
         [DisplayName("Quantity")]
         public int Quantity { get; set; }
+        
         [DisplayName("Dosage")]
         public String Dosage { get; set; }
+        
         [DisplayName("Refill Count")]
         public int RefillCount { get; set; }
     }
