@@ -15,12 +15,14 @@ namespace HealthcareApplications.Controllers
         private readonly PrescriptionContext _prescriptionContext;
         private readonly PatientContext _patientContext;
         private readonly DrugContext _drugContext;
+        private readonly PrescriptionDrugContext _prescriptionDrugContext;
 
-        public PrescriptionsController(PrescriptionContext context, PatientContext patientContext, DrugContext drugContext)
+        public PrescriptionsController(PrescriptionContext context, PatientContext patientContext, DrugContext drugContext, PrescriptionDrugContext prescriptionDrugContext)
         {
             _prescriptionContext = context;
             _patientContext = patientContext;
             _drugContext = drugContext;
+            _prescriptionDrugContext = prescriptionDrugContext;
         }
 
         // GET: Prescriptions
@@ -66,10 +68,15 @@ namespace HealthcareApplications.Controllers
 
             var prescription = await _prescriptionContext.Prescriptions
                 .FirstOrDefaultAsync(m => m.Id == id);
+
             if (prescription == null)
             {
                 return NotFound();
             }
+            
+            List<PrescriptionDrug> prescriptionDrugs = _prescriptionDrugContext.PrescriptionDrugs.Where(pd => pd.PrescriptionId == prescription.Id).ToList();
+
+            prescription.PrescribedDrugs = prescriptionDrugs;
 
             return View(prescription);
         }

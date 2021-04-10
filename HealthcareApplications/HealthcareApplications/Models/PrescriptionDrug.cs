@@ -6,17 +6,14 @@ using System.Threading.Tasks;
 
 namespace HealthcareApplications.Models
 {
+    [Table("PrescriptionDrug")]
     public class PrescriptionDrug
     {
+        public int Id { get; set; }
+
         public int PrescriptionId { get; set; }
 
         public int DrugId { get; set; }
-
-        [NotMapped]
-        public Prescription Prescription { get; set; }
-
-        [NotMapped]
-        public Drug Drug { get; set; }
 
     }
 }
