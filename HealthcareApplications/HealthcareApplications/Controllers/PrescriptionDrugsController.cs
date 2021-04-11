@@ -10,22 +10,22 @@ using HealthcareApplications.Models;
 
 namespace HealthcareApplications.Controllers
 {
-    public class PrescriptionsController : Controller
+    public class PrescriptionDrugsController : Controller
     {
-        private readonly PrescriptionContext _context;
+        private readonly PrescriptionDrugContext _context;
 
-        public PrescriptionsController(PrescriptionContext context)
+        public PrescriptionDrugsController(PrescriptionDrugContext context)
         {
             _context = context;
         }
 
-        // GET: Prescriptions
+        // GET: PrescriptionDrugs
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Prescriptions.ToListAsync());
+            return View(await _context.PrescriptionDrugs.ToListAsync());
         }
 
-        // GET: Prescriptions/Details/5
+        // GET: PrescriptionDrugs/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -33,39 +33,39 @@ namespace HealthcareApplications.Controllers
                 return NotFound();
             }
 
-            var prescription = await _context.Prescriptions
+            var prescriptionDrug = await _context.PrescriptionDrugs
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (prescription == null)
+            if (prescriptionDrug == null)
             {
                 return NotFound();
             }
 
-            return View(prescription);
+            return View(prescriptionDrug);
         }
 
-        // GET: Prescriptions/Create
+        // GET: PrescriptionDrugs/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Prescriptions/Create
+        // POST: PrescriptionDrugs/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,StartDate,PrescribingPhysicianId,PrescribedPatientId")] Prescription prescription)
+        public async Task<IActionResult> Create([Bind("Id,PrescriptionId,DrugId,Quantity,Dosage,RefillCount")] PrescriptionDrug prescriptionDrug)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(prescription);
+                _context.Add(prescriptionDrug);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(prescription);
+            return View(prescriptionDrug);
         }
 
-        // GET: Prescriptions/Edit/5
+        // GET: PrescriptionDrugs/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -73,22 +73,22 @@ namespace HealthcareApplications.Controllers
                 return NotFound();
             }
 
-            var prescription = await _context.Prescriptions.FindAsync(id);
-            if (prescription == null)
+            var prescriptionDrug = await _context.PrescriptionDrugs.FindAsync(id);
+            if (prescriptionDrug == null)
             {
                 return NotFound();
             }
-            return View(prescription);
+            return View(prescriptionDrug);
         }
 
-        // POST: Prescriptions/Edit/5
+        // POST: PrescriptionDrugs/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,StartDate,PrescribingPhysicianId,PrescribedPatientId")] Prescription prescription)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,PrescriptionId,DrugId,Quantity,Dosage,RefillCount")] PrescriptionDrug prescriptionDrug)
         {
-            if (id != prescription.Id)
+            if (id != prescriptionDrug.Id)
             {
                 return NotFound();
             }
@@ -97,12 +97,12 @@ namespace HealthcareApplications.Controllers
             {
                 try
                 {
-                    _context.Update(prescription);
+                    _context.Update(prescriptionDrug);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!PrescriptionExists(prescription.Id))
+                    if (!PrescriptionDrugExists(prescriptionDrug.Id))
                     {
                         return NotFound();
                     }
@@ -113,10 +113,10 @@ namespace HealthcareApplications.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(prescription);
+            return View(prescriptionDrug);
         }
 
-        // GET: Prescriptions/Delete/5
+        // GET: PrescriptionDrugs/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -124,30 +124,30 @@ namespace HealthcareApplications.Controllers
                 return NotFound();
             }
 
-            var prescription = await _context.Prescriptions
+            var prescriptionDrug = await _context.PrescriptionDrugs
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (prescription == null)
+            if (prescriptionDrug == null)
             {
                 return NotFound();
             }
 
-            return View(prescription);
+            return View(prescriptionDrug);
         }
 
-        // POST: Prescriptions/Delete/5
+        // POST: PrescriptionDrugs/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var prescription = await _context.Prescriptions.FindAsync(id);
-            _context.Prescriptions.Remove(prescription);
+            var prescriptionDrug = await _context.PrescriptionDrugs.FindAsync(id);
+            _context.PrescriptionDrugs.Remove(prescriptionDrug);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool PrescriptionExists(int id)
+        private bool PrescriptionDrugExists(int id)
         {
-            return _context.Prescriptions.Any(e => e.Id == id);
+            return _context.PrescriptionDrugs.Any(e => e.Id == id);
         }
     }
 }

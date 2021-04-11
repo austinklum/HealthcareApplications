@@ -6,17 +6,6 @@
             <th>
                 @Html.DisplayNameFor(model => model.Prescriptions[0].StartDate)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Prescriptions[0].PrescribedDrugId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Prescriptions[0].Quantity)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Prescriptions[0].Dosage)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Prescriptions[0].RefillCount)
             </th>
             <th></th>
         </tr>
@@ -27,18 +16,6 @@
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.StartDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PrescribedDrugId)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Quantity)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Dosage)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.RefillCount)
                 </td>
                 <td>
                     <a asp-action="Details" asp-controller="Prescriptions" asp-route-id="@item.Id">Details</a>

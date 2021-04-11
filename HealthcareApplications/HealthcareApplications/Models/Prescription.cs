@@ -23,14 +23,6 @@ namespace HealthcareApplications.Models
         
         [DisplayName("Prescribed Drugs")]
         public List<PrescriptionDrug> PrescribedDrugs { get; set; }
-        
-        [DisplayName("Quantity")]
-        public int Quantity { get; set; }
-        
-        [DisplayName("Dosage")]
-        public String Dosage { get; set; }
-        
-        [DisplayName("Refill Count")]
-        public int RefillCount { get; set; }
+       
     }
 }

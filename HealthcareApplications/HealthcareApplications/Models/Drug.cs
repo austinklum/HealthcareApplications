@@ -13,5 +13,6 @@ namespace HealthcareApplications.Models
         public int Id { get; set; }
         [DisplayName("Drug Name")]
         public string Name { get; set; }
+
     }
 }

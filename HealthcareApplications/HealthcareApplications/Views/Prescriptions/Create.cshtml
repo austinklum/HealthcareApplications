@@ -17,35 +17,9 @@
                 <input asp-for="StartDate" class="form-control" />
                 <span asp-validation-for="StartDate" class="text-danger"></span>
             </div>
+            <h4>Drugs</h4>
             <div class="form-group">
-                <label asp-for="PrescribingPhysicianId" class="control-label"></label>
-                <input asp-for="PrescribingPhysicianId" class="form-control" />
-                <span asp-validation-for="PrescribingPhysicianId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PrescribedPatientId" class="control-label"></label>
-                <input asp-for="PrescribedPatientId" class="form-control" />
-                <span asp-validation-for="PrescribedPatientId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PrescribedDrugId" class="control-label"></label>
-                <input asp-for="PrescribedDrugId" class="form-control" />
-                <span asp-validation-for="PrescribedDrugId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Quantity" class="control-label"></label>
-                <input asp-for="Quantity" class="form-control" />
-                <span asp-validation-for="Quantity" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Dosage" class="control-label"></label>
-                <input asp-for="Dosage" class="form-control" />
-                <span asp-validation-for="Dosage" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="RefillCount" class="control-label"></label>
-                <input asp-for="RefillCount" class="form-control" />
-                <span asp-validation-for="RefillCount" class="text-danger"></span>
+                <a asp-action="Create" asp-route-id="">Edit</a> |
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
@@ -58,6 +32,3 @@
     <a asp-action="Index">Back to List</a>
 </div>
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}

@@ -38,7 +38,7 @@ namespace HealthcareApplications.Components
 
             if (!string.IsNullOrEmpty(searchPrescription))
             {
-                prescriptions = prescriptions.Where(s => s.Id.ToString() == searchPrescription || _drugContext.Drugs.Find(s.PrescribedDrugId).Name.Contains(searchPrescription));
+               // prescriptions = prescriptions.Where(s => s.Id.ToString() == searchPrescription || _drugContext.Drugs.Find(s.PrescribedDrugId).Name.Contains(searchPrescription));
             }
 
             if (!string.IsNullOrEmpty(searchPatientId))
