@@ -65,7 +65,7 @@ namespace HealthcareApplications.Controllers
             {
                 _context.Add(prescriptionDrug);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("Edit", "Prescriptions", new { Id = prescriptionDrug.PrescriptionId});
+                return RedirectToAction("Edit", "Prescriptions", new { Id = prescriptionDrug.PrescriptionId });
             }
             return View(prescriptionDrug);
         }

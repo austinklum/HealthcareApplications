@@ -34,17 +34,9 @@
 <div class="form-group">
     <a asp-controller="PrescriptionDrugs" asp-action="Create" asp-route-id="@Model.PrescriptionId">Add Drug</a>
 </div>
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
-</div>
+@await Component.InvokeAsync("PrescriptionsPrescriptionDrugsList", new { Model.PrescriptionId, SearchPrescriptionDrugs = "" })
 
 <div>
-    <a asp-controller="Patients" asp-action="Details" asp-route-id="@Model.Prescription.PrescribedPatientId">Back to patient</a>
+    <a asp-controller="Patients" asp-action="Details" asp-route-id="@Model.Prescription.PrescribedPatientId">Back to Patient</a>
 </div>
 

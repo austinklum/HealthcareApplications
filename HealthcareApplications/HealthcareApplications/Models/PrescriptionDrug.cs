@@ -25,5 +25,11 @@ namespace HealthcareApplications.Models
         [DisplayName("Refill Count")]
         public int RefillCount { get; set; }
 
+        [NotMapped]
+        public Prescription Prescription { get; set; }
+
+        [NotMapped]
+        public Drug Drug { get; set; }
+
     }
 }
