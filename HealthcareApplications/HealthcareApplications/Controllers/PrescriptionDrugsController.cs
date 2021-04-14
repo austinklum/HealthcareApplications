@@ -44,9 +44,13 @@ namespace HealthcareApplications.Controllers
         }
 
         // GET: PrescriptionDrugs/Create
-        public IActionResult Create()
+        public IActionResult Create(int id) // passing in prescription ID
         {
-            return View();
+            PrescriptionDrug prescriptionDrug = new PrescriptionDrug()
+            {
+                PrescriptionId = id
+            };
+            return View(prescriptionDrug);
         }
 
         // POST: PrescriptionDrugs/Create
@@ -56,11 +60,12 @@ namespace HealthcareApplications.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,PrescriptionId,DrugId,Quantity,Dosage,RefillCount")] PrescriptionDrug prescriptionDrug)
         {
+            prescriptionDrug.Id = 0;
             if (ModelState.IsValid)
             {
                 _context.Add(prescriptionDrug);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Edit", "Prescriptions", new { Id = prescriptionDrug.PrescriptionId});
             }
             return View(prescriptionDrug);
         }

@@ -57,7 +57,7 @@ namespace HealthcareApplications.Controllers
         }
 
         // GET: Prescriptions/Create
-        public async Task<IActionResult> Create(int id)
+        public async Task<IActionResult> Create(int id) // passes in Patient ID
         {
             var patient = _patientContex.Patients.Find(id);
 
@@ -68,15 +68,17 @@ namespace HealthcareApplications.Controllers
                 StartDate = DateTime.Now
             };
 
+            _prescriptionContext.Add(prescription);
+            await _prescriptionContext.SaveChangesAsync();
+
             PrescriptionDetailsViewModel prescriptionDetailsViewModel = new PrescriptionDetailsViewModel()
             {
+                PrescriptionId = prescription.Id,
                 Prescription = prescription,
                 PatientName = patient.Name,
                 PhysicianName = _physicianContext.Physicians.Find(patient.PhysicianId).Name,
             };
 
-            _prescriptionContext.Add(prescription);
-            await _prescriptionContext.SaveChangesAsync();
             
             return View(prescriptionDetailsViewModel);
         }

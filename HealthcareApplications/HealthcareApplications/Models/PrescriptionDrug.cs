@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace HealthcareApplications.Models
 {
-    [Table("PrescriptionDrug")]
+    [Table("PrescriptionDrugs")]
     public class PrescriptionDrug
     {
         public int Id { get; set; }
