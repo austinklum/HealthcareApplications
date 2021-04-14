@@ -1,4 +1,4 @@
-﻿@model HealthcareApplications.Models.Prescription
+﻿@model HealthcareApplications.Models.PrescriptionDetailsViewModel
 
 @{
     ViewData["Title"] = "Details";
@@ -11,26 +11,25 @@
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.StartDate)
+            @Html.DisplayNameFor(model => model.Prescription.StartDate)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.StartDate)
+            @Html.DisplayFor(model => model.Prescription.StartDate)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PrescribingPhysicianId)
+            @Html.DisplayNameFor(model => model.PatientName)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PrescribingPhysicianId)
+            @Html.DisplayFor(model => model.PatientName)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PrescribedPatientId)
+            @Html.DisplayNameFor(model => model.PhysicianName)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PrescribedPatientId)
+            @Html.DisplayFor(model => model.PhysicianName)
         </dd>
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>
