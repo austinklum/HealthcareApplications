@@ -71,16 +71,10 @@ namespace HealthcareApplications.Controllers
             _prescriptionContext.Add(prescription);
             await _prescriptionContext.SaveChangesAsync();
 
-            PrescriptionDetailsViewModel prescriptionDetailsViewModel = new PrescriptionDetailsViewModel()
-            {
-                PrescriptionId = prescription.Id,
-                Prescription = prescription,
-                PatientName = patient.Name,
-                PhysicianName = _physicianContext.Physicians.Find(patient.PhysicianId).Name,
-            };
+           
 
-            
-            return View(prescriptionDetailsViewModel);
+
+            return RedirectToAction(nameof(Edit), new { prescription.Id});
         }
 
         // POST: Prescriptions/Create
@@ -112,7 +106,18 @@ namespace HealthcareApplications.Controllers
             {
                 return NotFound();
             }
-            return View(prescription);
+
+            var patient = _patientContex.Patients.Find(prescription.PrescribedPatientId);
+
+            PrescriptionDetailsViewModel prescriptionDetailsViewModel = new PrescriptionDetailsViewModel()
+            {
+                PrescriptionId = prescription.Id,
+                Prescription = prescription,
+                PatientName = patient.Name,
+                PhysicianName = _physicianContext.Physicians.Find(patient.PhysicianId).Name,
+            };
+
+            return View(prescriptionDetailsViewModel);
         }
 
         // POST: Prescriptions/Edit/5
