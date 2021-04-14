@@ -31,12 +31,11 @@
 </div>
 <h4>Drugs</h4>
 <div class="form-group">
-    <a asp-action="Create" asp-route-id="">Edit</a> |
+    <a asp-controller="PrescriptionDrugs" asp-action="Create" asp-route-id="@Model.PrescriptionId">Add Drug</a>
 </div>
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
-            
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
