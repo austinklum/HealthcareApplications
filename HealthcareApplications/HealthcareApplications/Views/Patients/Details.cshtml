@@ -29,10 +29,10 @@
             @Html.DisplayFor(model => model.Address)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.PhysicianId)
+            @Html.DisplayNameFor(model => model.Physician.Name)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.PhysicianId)
+            @Html.DisplayFor(model => model.Physician.Name)
         </dd>
     </dl>
 </div>
@@ -40,7 +40,8 @@
 <div>
     <a asp-controller="Prescriptions" asp-action="Create" asp-route-id="@Model.Id">Create Prescription</a>
 </div>
- @await Component.InvokeAsync("PrescriptionsList", new { searchPatientId = Model.Id.ToString(), searchPrescription = "" })
+<br />
+ @await Component.InvokeAsync("PrescriptionsList", new { searchPatientId = Model.Id, searchPrescription = "" })
 <div>
     <a asp-controller="Home" asp-action="UserDashBoard">Back to List</a>
 </div>

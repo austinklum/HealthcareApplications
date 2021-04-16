@@ -71,12 +71,13 @@ namespace HealthcareApplications.Controllers
                 return NotFound();
             }
 
-            var patient = await _patientContext.Patients
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var patient = await _patientContext.Patients.FirstOrDefaultAsync(m => m.Id == id);
             if (patient == null)
             {
                 return NotFound();
             }
+
+            patient.Physician = _physicianContext.Physicians.Find(patient.PhysicianId);
 
             return View(patient);
         }

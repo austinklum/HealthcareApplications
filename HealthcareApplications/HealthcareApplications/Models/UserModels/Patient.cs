@@ -14,7 +14,7 @@ namespace HealthcareApplications.Models
         public String Name { get; set; }
         [DisplayName("Patient ID")]
         public int Id { get; set; }
-        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}")]
+        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
         [DisplayName("Date Of Birth")]
         public DateTime DateOfBirth { get; set; }
         [DisplayName("Address")]

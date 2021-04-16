@@ -6,21 +6,24 @@
             <th>
                 @Html.DisplayNameFor(model => model.Prescriptions[0].StartDate)
             </th>
-            </th>
+            <th></th>
             <th></th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model.Prescriptions)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.StartDate)
-                </td>
-                <td>
-                    <a asp-action="Details" asp-controller="Prescriptions" asp-route-id="@item.Id">Details</a>
-                </td>
-            </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.StartDate)
+            </td>
+            <td>
+                @item.GetDrugNames(3)
+            </td>
+            <td>
+                <a asp-action="Details" asp-controller="Prescriptions" asp-route-id="@item.Id">Details</a>
+            </td>
+        </tr>
         }
     </tbody>
 </table>
