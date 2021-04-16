@@ -12,17 +12,20 @@ namespace HealthcareApplications.Controllers
 {
     public class PrescriptionDrugsController : Controller
     {
-        private readonly PrescriptionDrugContext _context;
+        private readonly PrescriptionDrugContext _prescriptionDrugContext;
+        private readonly DrugContext _drugContext;
 
-        public PrescriptionDrugsController(PrescriptionDrugContext context)
+
+        public PrescriptionDrugsController(PrescriptionDrugContext context, DrugContext drugContext)
         {
-            _context = context;
+            _prescriptionDrugContext = context;
+            _drugContext = drugContext;
         }
 
         // GET: PrescriptionDrugs
         public async Task<IActionResult> Index()
         {
-            return View(await _context.PrescriptionDrugs.ToListAsync());
+            return View(await _prescriptionDrugContext.PrescriptionDrugs.ToListAsync());
         }
 
         // GET: PrescriptionDrugs/Details/5
@@ -33,7 +36,7 @@ namespace HealthcareApplications.Controllers
                 return NotFound();
             }
 
-            var prescriptionDrug = await _context.PrescriptionDrugs
+            var prescriptionDrug = await _prescriptionDrugContext.PrescriptionDrugs
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (prescriptionDrug == null)
             {
@@ -50,24 +53,39 @@ namespace HealthcareApplications.Controllers
             {
                 PrescriptionId = id
             };
-            return View(prescriptionDrug);
+
+            List<SelectListItem> drugs = _drugContext.Drugs
+                                                       .Select(p => new SelectListItem()
+                                                       {
+                                                           Value = p.Id.ToString(),
+                                                           Text = p.Name
+                                                       })
+                                                        .ToList();
+
+            PrescriptionDrugsCreateViewModel vm = new PrescriptionDrugsCreateViewModel()
+            {
+                PrescriptionDrug = prescriptionDrug,
+                DrugsList = drugs
+            };
+
+            return View(vm);
         }
 
         // POST: PrescriptionDrugs/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,PrescriptionId,DrugId,Quantity,Dosage,RefillCount")] PrescriptionDrug prescriptionDrug)
+        public async Task<IActionResult> Create(PrescriptionDrugsCreateViewModel vm)
         {
-            prescriptionDrug.Id = 0;
+            vm.PrescriptionDrug.Id = 0;
+            vm.PrescriptionDrug.DrugId = int.Parse(vm.SelectedDrugId);
             if (ModelState.IsValid)
             {
-                _context.Add(prescriptionDrug);
-                await _context.SaveChangesAsync();
-                return RedirectToAction("Edit", "Prescriptions", new { Id = prescriptionDrug.PrescriptionId });
+                _prescriptionDrugContext.Add(vm.PrescriptionDrug);
+                await _prescriptionDrugContext.SaveChangesAsync();
+                return RedirectToAction("Edit", "Prescriptions", new { Id = vm.PrescriptionDrug.PrescriptionId });
             }
-            return View(prescriptionDrug);
+            return View(vm);
         }
 
         // GET: PrescriptionDrugs/Edit/5
@@ -78,7 +96,7 @@ namespace HealthcareApplications.Controllers
                 return NotFound();
             }
 
-            var prescriptionDrug = await _context.PrescriptionDrugs.FindAsync(id);
+            var prescriptionDrug = await _prescriptionDrugContext.PrescriptionDrugs.FindAsync(id);
             if (prescriptionDrug == null)
             {
                 return NotFound();
@@ -102,8 +120,8 @@ namespace HealthcareApplications.Controllers
             {
                 try
                 {
-                    _context.Update(prescriptionDrug);
-                    await _context.SaveChangesAsync();
+                    _prescriptionDrugContext.Update(prescriptionDrug);
+                    await _prescriptionDrugContext.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -129,7 +147,7 @@ namespace HealthcareApplications.Controllers
                 return NotFound();
             }
 
-            var prescriptionDrug = await _context.PrescriptionDrugs
+            var prescriptionDrug = await _prescriptionDrugContext.PrescriptionDrugs
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (prescriptionDrug == null)
             {
@@ -144,15 +162,15 @@ namespace HealthcareApplications.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var prescriptionDrug = await _context.PrescriptionDrugs.FindAsync(id);
-            _context.PrescriptionDrugs.Remove(prescriptionDrug);
-            await _context.SaveChangesAsync();
+            var prescriptionDrug = await _prescriptionDrugContext.PrescriptionDrugs.FindAsync(id);
+            _prescriptionDrugContext.PrescriptionDrugs.Remove(prescriptionDrug);
+            await _prescriptionDrugContext.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool PrescriptionDrugExists(int id)
         {
-            return _context.PrescriptionDrugs.Any(e => e.Id == id);
+            return _prescriptionDrugContext.PrescriptionDrugs.Any(e => e.Id == id);
         }
     }
 }
