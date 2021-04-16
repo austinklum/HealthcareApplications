@@ -75,9 +75,9 @@ namespace HealthcareApplications.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        public async Task<IActionResult> Create(PrescriptionDrugsCreateViewModel vm)
+        public async Task<IActionResult> Create(int id, PrescriptionDrugsCreateViewModel vm)
         {
-            vm.PrescriptionDrug.Id = 0;
+            vm.PrescriptionDrug.PrescriptionId = id;
             vm.PrescriptionDrug.DrugId = int.Parse(vm.SelectedDrugId);
             if (ModelState.IsValid)
             {
