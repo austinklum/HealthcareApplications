@@ -54,13 +54,7 @@ namespace HealthcareApplications.Controllers
                 PrescriptionId = id
             };
 
-            List<SelectListItem> drugs = _drugContext.Drugs
-                                                       .Select(p => new SelectListItem()
-                                                       {
-                                                           Value = p.Id.ToString(),
-                                                           Text = p.Name
-                                                       })
-                                                        .ToList();
+            List<SelectListItem> drugs = SelectDrugsList();
 
             PrescriptionDrugsCreateViewModel vm = new PrescriptionDrugsCreateViewModel()
             {
@@ -69,6 +63,17 @@ namespace HealthcareApplications.Controllers
             };
 
             return View(vm);
+        }
+
+        private List<SelectListItem> SelectDrugsList()
+        {
+            return _drugContext.Drugs
+                                                       .Select(p => new SelectListItem()
+                                                       {
+                                                           Value = p.Id.ToString(),
+                                                           Text = p.Name
+                                                       })
+                                                        .ToList();
         }
 
         // POST: PrescriptionDrugs/Create
@@ -85,6 +90,8 @@ namespace HealthcareApplications.Controllers
                 await _prescriptionDrugContext.SaveChangesAsync();
                 return RedirectToAction("Edit", "Prescriptions", new { Id = vm.PrescriptionDrug.PrescriptionId });
             }
+            vm.DrugsList = SelectDrugsList();
+
             return View(vm);
         }
 
