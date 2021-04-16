@@ -41,19 +41,23 @@ namespace HealthcareApplications.Controllers
         // GET: Prescriptions/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            if (id == null) return NotFound();
 
-            var prescription = await _prescriptionContext.Prescriptions
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (prescription == null)
-            {
-                return NotFound();
-            }
+            var prescription = await _prescriptionContext.Prescriptions.FindAsync(id);
+            
+            if (prescription == null) return NotFound();
 
-            return View(prescription);
+            var patient = _patientContex.Patients.Find(prescription.PrescribedPatientId);
+
+            PrescriptionDetailsViewModel prescriptionDetailsViewModel = new PrescriptionDetailsViewModel()
+            {
+                PrescriptionId = prescription.Id,
+                Prescription = prescription,
+                PatientName = patient.Name,
+                PhysicianName = _physicianContext.Physicians.Find(patient.PhysicianId).Name,
+            };
+
+            return View(prescriptionDetailsViewModel);
         }
 
         // GET: Prescriptions/Create
