@@ -37,6 +37,7 @@ namespace HealthcareApplications
             services.AddDistributedMemoryCache();
             services.AddSession();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddSingleton<Microsoft.Extensions.Options.IConfigureOptions<SessionOptions>, ConfigureSessionOptions>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
