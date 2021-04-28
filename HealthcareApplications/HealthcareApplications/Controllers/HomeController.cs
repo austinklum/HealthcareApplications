@@ -34,11 +34,11 @@ namespace HealthcareApplications.Controllers
                                                                    "What street did you live on in third grade?",
                                                                    "What was your childhood best friend's name?" };
 
-        private const string SecurityQuestionNum = "SecurityQuestionNum";
-        private const string SecurityQuestionText = "SecurityQuestionText";
-        private const string SecurityQuestionsAttempted = "SecurityQuestionsAttempted";
-        public static string UserId = "UserId";
-        public static string Name = "Name";
+        private const string SecurityQuestionNum = "HealthcareSecurityQuestionNum";
+        private const string SecurityQuestionText = "HealthcareSecurityQuestionText";
+        private const string SecurityQuestionsAttempted = "HealthcareSecurityQuestionsAttempted";
+        public static string UserId = "HealthcareUserId";
+        public static string Name = "HealthcareName";
 
         public HomeController(ILogger<HomeController> logger, UserContext context, PatientContext patientContext, PhysicianContext physicianContext)
         {
@@ -87,20 +87,20 @@ namespace HealthcareApplications.Controllers
             {
                 if (enteredUser.Username == null)
                 {
-                    enteredUser.Username = HttpContext.Session.GetString("Username");
+                    enteredUser.Username = HttpContext.Session.GetString("HealthcareUsername");
                 }
 
                 User foundUser = _userContext.Users.FirstOrDefault(a => a.Username.Equals(enteredUser.Username));
 
                 if (foundUser == null)
                 {
-                    HttpContext.Session.SetString("Username", "");
+                    HttpContext.Session.SetString("HealthcareUsername", "");
                     HttpContext.Session.SetString(SecurityQuestionNum, "0");
                     return View();
                 }
                 if (foundUser.AccountStatus != 1)
                 {
-                    HttpContext.Session.SetString("Username", "");
+                    HttpContext.Session.SetString("HealthcareUsername", "");
                     HttpContext.Session.SetString(SecurityQuestionNum, "4");
                     return View();
                 }
@@ -128,7 +128,7 @@ namespace HealthcareApplications.Controllers
                         int nextQuestionNum = random.Next(1, 4);
                         HttpContext.Session.SetString(SecurityQuestionNum, nextQuestionNum.ToString());
                         HttpContext.Session.SetString(SecurityQuestionsAttempted, nextQuestionNum.ToString());
-                        HttpContext.Session.SetString("Username", foundUser.Username);
+                        HttpContext.Session.SetString("HealthcareUsername", foundUser.Username);
 
                         switch (nextQuestionNum)
                         {
@@ -162,19 +162,19 @@ namespace HealthcareApplications.Controllers
                    (enteredUser.SecQ3Response != null && saltedHashedQ3.SequenceEqual(foundUser.SecQ3ResponseHash)))
                 {
                     bool isPatient = _patientContext.Patients.FirstOrDefault(a => a.UserId == foundUser.Id) != null;
-                    HttpContext.Session.SetString("Role", isPatient ? "Patient" : "Physician");
+                    HttpContext.Session.SetString("HealthcareRole", isPatient ? "Patient" : "Physician");
                     HttpContext.Session.SetString(UserId, foundUser.Id.ToString());
                     if (isPatient)
                     {
                         var patient = _patientContext.Patients.FirstOrDefault(a => a.UserId == foundUser.Id);
                         HttpContext.Session.SetString(Name, patient.Name);
-                        HttpContext.Session.SetString("PatientId", patient.Id.ToString());
+                        HttpContext.Session.SetString("HealthcarePatientId", patient.Id.ToString());
                     }
                     else
                     {
                         var physician = _physicianContext.Physicians.FirstOrDefault(a => a.UserId == foundUser.Id);
                         HttpContext.Session.SetString(Name, physician.Name);
-                        HttpContext.Session.SetString("PhysicianId", physician.Id.ToString());
+                        HttpContext.Session.SetString("HealthcarePhysicianId", physician.Id.ToString());
                     }
                     //send to user dashboard ;
                     return RedirectToAction("UserDashBoard");
@@ -250,7 +250,7 @@ namespace HealthcareApplications.Controllers
 
         public ActionResult UserDashBoard()
         {
-            if (HttpContext.Session.GetString("Username") != null)
+            if (HttpContext.Session.GetString("HealthcareUsername") != null)
             {
                 return View();
             }
@@ -265,7 +265,7 @@ namespace HealthcareApplications.Controllers
             User foundUser = _userContext.Users.First(u => u.Id.ToString() == HttpContext.Session.GetString(UserId));
             Patient foundPatient = null;
             Physician foundPhysician = null;
-            if(HttpContext.Session.GetString("Role") == "Patient")
+            if(HttpContext.Session.GetString("HealthcareRole") == "Patient")
             {
                 foundPatient = _patientContext.Patients.First(p => p.UserId == foundUser.Id);
             }
@@ -287,7 +287,7 @@ namespace HealthcareApplications.Controllers
             User foundUser = _userContext.Users.First(u => u.Id.ToString() == HttpContext.Session.GetString(UserId));
             Patient foundPatient = null;
             Physician foundPhysician = null;
-            if (HttpContext.Session.GetString("Role") == "Patient")
+            if (HttpContext.Session.GetString("HealthcareRole") == "Patient")
             {
                 foundPatient = _patientContext.Patients.First(p => p.UserId == foundUser.Id);
             }
@@ -311,7 +311,7 @@ namespace HealthcareApplications.Controllers
             User foundUser = _userContext.Users.First(u => u.Id.ToString() == HttpContext.Session.GetString(UserId));
             Patient foundPatient = null;
             Physician foundPhysician = null;
-            if (HttpContext.Session.GetString("Role") == "Patient")
+            if (HttpContext.Session.GetString("HealthcareRole") == "Patient")
             {
                 foundPatient = _patientContext.Patients.First(p => p.UserId == foundUser.Id);
                 if(vm.CurrentPatient.DateOfBirth == DateTime.MinValue)
@@ -366,7 +366,7 @@ namespace HealthcareApplications.Controllers
                 foundUser.SecQ3ResponseHash = saltedHashedQ3;
             }
 
-            if (HttpContext.Session.GetString("Role") == "Patient")
+            if (HttpContext.Session.GetString("HealthcareRole") == "Patient")
             {
                 if (!string.IsNullOrEmpty(vm.CurrentPatient.Name))
                 {
@@ -402,19 +402,19 @@ namespace HealthcareApplications.Controllers
             _userContext.Users.Update(foundUser);
             _userContext.SaveChanges();
 
-            HttpContext.Session.SetString("Username", foundUser.Username);
+            HttpContext.Session.SetString("HealthcareUsername", foundUser.Username);
 
             return RedirectToAction("MyDetails");
         }
 
         public ActionResult LogOut()
         {
-            HttpContext.Session.SetString("Username", "");
+            HttpContext.Session.SetString("HealthcareUsername", "");
             HttpContext.Session.SetString(SecurityQuestionNum, "0");
             HttpContext.Session.SetString(SecurityQuestionsAttempted, "");
-            HttpContext.Session.SetString("Role", "");
-            HttpContext.Session.SetString("PatientId", "");
-            HttpContext.Session.SetString("PhysicianId", "");
+            HttpContext.Session.SetString("HealthcareRole", "");
+            HttpContext.Session.SetString("HealthcarePatientId", "");
+            HttpContext.Session.SetString("HealthcarePhysicianId", "");
             return RedirectToAction("Login");
         }
 

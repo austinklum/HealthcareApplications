@@ -9,7 +9,7 @@
 
 <div>
     <hr />
-    @if (HttpContextAccessor.HttpContext.Session.GetString("Role") == "Patient")
+    @if (HttpContextAccessor.HttpContext.Session.GetString("HealthcareRole") == "Patient")
     {
         <dl class="row">
             <dt class="col-sm-2">
